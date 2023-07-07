@@ -18,33 +18,7 @@ $(document).ready(function() {
 
     });
 	
-    $('.subscribe form').submit(function(e) {
-        e.preventDefault();
-        var postdata = $('.subscribe form').serialize();
-        $.ajax({
-            type: 'POST',
-            contentType: 'application/json',
-            url: 'https://thiv1xxsjc.execute-api.ap-southeast-1.amazonaws.com/prod/contact',
-            data: '{\"email\":\"' + $('#email').val().trim() + '\", \"name\":\"' + $('#name').val().trim() + '\", \"message\":\"' + $('#message').val().trim() + '\"}'
-            dataType: 'json',
-            success: function(json) {
-                jsonBody = jQuery.parseJSON(json.body);
-                if(jsonBody.errorCode == 0) {
-                    $('.success-message').hide();
-                    $('.error-message').hide();
-                    $('.error-message').html("Subscribe Successfully!");
-                    $('.error-message').fadeIn();
-                }
-                else {
-                    $('.error-message').hide();
-                    $('.success-message').hide();
-                    $('.subscribe form').hide();
-                    $('.success-message').html(jsonBody.errorMessage);
-                    $('.success-message').fadeIn();
-                }
-            }
-        });
-    });
+    
 
     function resizeText() {
         var preferredWidth = 767;
@@ -150,7 +124,40 @@ $(document).ready(function() {
         setProjects();
     });
 
-
+    $('.form').submit(function(e) {
+        e.preventDefault();
+        var postdata = $('.form').serialize();
+        var requestData = {
+            email: $('#email').val().trim(),
+            name: $('#name').val().trim(),
+            message: '這是來自智安官網的留言：' + $('#message').val().trim()
+        };
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            url: 'https://thiv1xxsjc.execute-api.ap-southeast-1.amazonaws.com/prod/contact',
+            data: JSON.stringify(requestData),
+            dataType: 'json',
+            success: function(json) {
+                var jsonBody = json.body;
+                
+                if(jsonBody.errorCode == 0) {
+                    $('.success-message').hide();
+                    $('.error-message').hide();
+                    $('.error-message').html("留言已送出！");
+                    $('.error-message').fadeIn();
+                    $('.input-btn').val("留言已送出！");
+                }
+                else {
+                    $('.error-message').hide();
+                    $('.success-message').hide();
+                    $('.subscribe form').hide();
+                    $('.success-message').html(jsonBody.errorMessage);
+                    $('.success-message').fadeIn();
+                }
+            }
+        });
+    });
 });
 
 wow = new WOW({
