@@ -18,6 +18,34 @@ $(document).ready(function() {
 
     });
 	
+    $('.subscribe form').submit(function(e) {
+        e.preventDefault();
+        var postdata = $('.subscribe form').serialize();
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            url: 'https://thiv1xxsjc.execute-api.ap-southeast-1.amazonaws.com/prod/contact',
+            data: '{\"email\":\"' + $('#email').val().trim() + '\", \"name\":\"' + $('#name').val().trim() + '\", \"message\":\"' + $('#message').val().trim() + '\"}'
+            dataType: 'json',
+            success: function(json) {
+                jsonBody = jQuery.parseJSON(json.body);
+                if(jsonBody.errorCode == 0) {
+                    $('.success-message').hide();
+                    $('.error-message').hide();
+                    $('.error-message').html("Subscribe Successfully!");
+                    $('.error-message').fadeIn();
+                }
+                else {
+                    $('.error-message').hide();
+                    $('.success-message').hide();
+                    $('.subscribe form').hide();
+                    $('.success-message').html(jsonBody.errorMessage);
+                    $('.success-message').fadeIn();
+                }
+            }
+        });
+    });
+
     function resizeText() {
         var preferredWidth = 767;
         var displayWidth = window.innerWidth;
