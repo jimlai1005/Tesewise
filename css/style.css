@@ -989,14 +989,6 @@ img {
 .footer_wrapper {
     background: #232323;
 }
-
-.qrcode {
-    float: left;
-    margin-top: 8px;
-    position: relative;
-    z-index: 2;
-}
-
 .qrcode img{
     height: 120px;
 }
