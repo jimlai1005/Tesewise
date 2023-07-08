@@ -111,6 +111,8 @@ p {
 	z-index: 2;
 }
 
+
+
 .res-nav_click {
     display: none;
 }
@@ -988,6 +990,17 @@ img {
     background: #232323;
 }
 
+.qrcode {
+    float: left;
+    margin-top: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.qrcode img{
+    height: 120px;
+}
+
 .footer_bottom {
     border-top: 1px solid #3C3A3A;
     padding: 25px 0;
@@ -1716,8 +1729,8 @@ text-align:center;
 margin: 0px;
 }
 .navbar-inverse .navbar-nav > li > a {
-color: #222;
-background: #F9F9F9;
+color: #FFF;
+background: #222;
 }
 } 
 @media (max-width: 480px){ 
